@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo</title>
+    <style>
+
+    body {
+        margin: 0;
+    }
+
+    #background {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background-color: #eee;
+        left: 0;
+        top: 0;
+        z-index: 1;
+        overflow: hidden;
+    }
+
+    #content {
+        position: relative;
+        z-index: 2;
+        padding: 1em;
+        background-color: rgba(0, 0, 0, .5);
+        color: #fff;
+        width: 640px;
+        margin: 0 auto;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    section figure {
+        display: inline-block;
+        width: 200px;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+
+    section figure .square {
+        display: inline-block;
+        width: 160px;
+        height: 160px;
+        overflow: hidden;
+    }
+
+    img {
+        vertical-align: top;
+    }
+
+    </style>
+</head>
+<body>
+
+    <div id="background">
+        <img src="https://farm1.staticflickr.com/514/20215076512_5d9311bccd_b.jpg" alt="" width="1024" height="678" class="hidden cover-image" data-cover-listen data-cover-transform>
+    </div>
+
+    <article id="content">
+        <h1>Demo: jQuery.fn.cover</h1>
+
+        <section>
+            <h1>Image (portrait)</h1>
+            <figure>
+                <span class="square">
+                    <img src="https://farm1.staticflickr.com/476/20229065071_b261854afd_b.jpg" alt="" width="678" height="1024" class="hidden cover-image" data-cover-transform>
+                </span>
+                <figcaption>
+                    Transform
+                </figcaption>
+            </figure>
+            <figure>
+                <span class="square">
+                    <img src="https://farm1.staticflickr.com/476/20229065071_b261854afd_b.jpg" alt="" width="678" height="1024" class="hidden cover-image">
+                </span>
+                <figcaption>
+                    Legacy
+                </figcaption>
+            </figure>
+        </section>
+
+        <section>
+            <h1>Image (landscape)</h1>
+            <figure>
+                <span class="square">
+                    <img src="https://farm1.staticflickr.com/342/20215080232_71382e5152_b.jpg" alt="" width="1024" height="678" class="hidden cover-image" data-cover-transform>
+                </span>
+                <figcaption>
+                    Transform
+                </figcaption>
+            </figure>
+            <figure>
+                <span class="square">
+                    <img src="https://farm1.staticflickr.com/342/20215080232_71382e5152_b.jpg" alt="" width="1024" height="678" class="hidden cover-image">
+                </span>
+                <figcaption>
+                    Legacy
+                </figcaption>
+            </figure>
+        </section>
+
+        <section>
+            <h1>Movie</h1>
+            <figure>
+                <span class="square">
+                    <iframe
+                        class="cover-movie hidden"
+                        width="1280"
+                        height="720" 
+                        src="https://www.youtube.com/embed/mt7rGhAm2CY?rel=0&amp;controls=1&amp;showinfo=0" 
+                        frameborder="0" 
+                        allowfullscreen
+                    ></iframe>
+                </span>
+            </figure>
+        </section>
+
+        <section>
+            <h1>Background</h1>
+            <p>
+                The background image of this page is rendered by $.fn.cover with "listen" option.
+            </p>
+        </section>
+    </article>
+
+    <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../src/jquery-cover.js"></script>
+    <script>
+
+    $(".cover-image").each(function(i){
+        var node = $(this), data = node.data();
+        node.coverTo(node.parent(), {
+            listen: ("coverListen" in data),
+            transform: ("coverTransform" in data)
+        })
+        .show();
+    });
+
+    $(".cover-movie").each(function(){
+        var node = $(this);
+        node.coverTo(node.parent()).show();
+    });
+
+    </script>
+</body>
+</html>
